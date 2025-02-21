@@ -59,6 +59,7 @@ public class UserController {
         return apiResponse;
     }
     //上传头像
+    @CrossOrigin(origins = "*")
     @PostMapping("/upload/avatar")
     public ApiResponse<Void> uploadAvatar(@RequestParam("image") MultipartFile file, HttpSession session){
         String path = "D:\\images\\avatars";
@@ -74,9 +75,19 @@ public class UserController {
         }
     }
     //显示头像
+    @CrossOrigin(origins = "*")
     @GetMapping("/avatar")
     public ApiResponse<String> avatar(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return userService.avatar(user.getUserId());
     }
+    //更改用户名
+    @CrossOrigin(origins = "*")
+    @PostMapping("/reset-userName")
+    public ApiResponse<Void> resetUserName(@RequestParam String newUserName, HttpSession session){
+        User user = (User) session.getAttribute("currentUser");
+        return userService.resetUserName(newUserName, user.getUserId());
+    }
+    //修改某设备的信息
+
 }

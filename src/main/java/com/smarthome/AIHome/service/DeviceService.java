@@ -43,4 +43,48 @@ public class DeviceService {
         apiResponse.setCode(200);
         return apiResponse;
     }
+    public ApiResponse<Void> deleteDevice(String deviceId){
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        if(deviceMapper.deleteById(deviceId) > 0) {
+            apiResponse.setCode(200);
+            apiResponse.setMessage("已成功删除");
+        }else {
+            apiResponse.setCode(500);
+            apiResponse.setMessage("删除失败");
+        }
+        return apiResponse;
+    }
+    public ApiResponse<Void> deleteAll(int userId){
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        if(deviceMapper.deleteAll(userId) > 0) {
+            apiResponse.setCode(200);
+            apiResponse.setMessage("已成功删除");
+        }else {
+            apiResponse.setCode(500);
+            apiResponse.setMessage("删除失败");
+        }
+        return apiResponse;
+    }
+    public ApiResponse<Void> updateDevice(String deviceId){
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        if(deviceMapper.updateById(deviceId) > 0){
+            apiResponse.setCode(200);
+            apiResponse.setMessage("修改成功");
+        }else {
+            apiResponse.setCode(500);
+            apiResponse.setMessage("修改失败");
+        }
+        return apiResponse;
+    }
+    public ApiResponse<Void> updateAC(String deviceId){
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        if(deviceMapper.updateById(deviceId) > 0){
+            apiResponse.setCode(200);
+            apiResponse.setMessage("修改成功");
+        }else {
+            apiResponse.setCode(500);
+            apiResponse.setMessage("修改失败");
+        }
+        return apiResponse;
+    }
 }

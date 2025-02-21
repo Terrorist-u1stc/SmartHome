@@ -1,6 +1,6 @@
 package com.smarthome.AIHome.entity;
 
-public abstract class Device {
+public  class Device {
     private String deviceId;
     private String model;
     private String name;
@@ -78,13 +78,13 @@ public abstract class Device {
         this.ownerId = ownerId;
     }
 
-    public abstract void turnOn();
+    //public abstract void turnOn();
 
     // 关闭设备
-    public abstract void turnOff();
+    //public abstract void turnOff();
 
     // 执行具体设备的控制命令
-    public abstract void executeCommand(String command, Object... params);
+    //public abstract void executeCommand(String command, Object... params);
     public enum Type{
         AC;//空调
     }

@@ -28,4 +28,19 @@ public interface DeviceMapper {
             @Result(property = "id", column = "owner_id")
     })
     List<Device> selectAll(int id);
+    //删除设备,通过设备id
+    @Delete("""
+            delete from device where
+            device_id = #{deviceId}
+            """)
+    @Result(property = "deviceId", column = "device_id")
+    int deleteById(String deviceId);
+    //删除某用户所有设备
+    @Delete("""
+            delete from device where
+            owner_id = #{userId}
+            """)
+    @Result(property = "userId", column = "owner_id")
+    int deleteAll(int userId);
+    int updateById(String deviceId);
 }

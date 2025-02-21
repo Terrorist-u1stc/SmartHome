@@ -1,0 +1,17 @@
+<mapper namespace ="com.smarthome.AIHome.mapper.DeviceMapper">
+    <update id = "updateById">
+        update device
+        <set>
+            <if test = "place != null and place !=''">
+                place = #{place},
+        </if>
+            <if test = "name != null and name !=''">
+                name = #{name},
+            </if>
+            <if test= "status != null">
+                status = #{status},
+            </if>
+        </set>
+        where device_id = #{deviceId}
+    </update>
+</mapper>

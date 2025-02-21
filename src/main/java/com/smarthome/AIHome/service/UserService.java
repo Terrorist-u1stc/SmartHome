@@ -69,26 +69,26 @@ public class UserService {
         }
         apiResponse.setCode(200);
         apiResponse.setMessage("登录成功");
-        apiResponse.setData(user);
+        apiResponse.setData(user1);
         return apiResponse;
     }
     public ApiResponse<Void> reset(String newPassword, int userId) {
         ApiResponse<Void> apiResponse = new ApiResponse<>();
-        try {
+        {
             int rowsAffected = userMapper.updatePassword(newPassword, userId);
             if (rowsAffected > 0) {
                 apiResponse.setMessage("密码更改成功");
                 apiResponse.setCode(200);
             } else {
                 apiResponse.setCode(500);
-                apiResponse.setMessage("密码更改失败");
+                apiResponse.setMessage("密码更改失败,数据库");
             }
             return apiResponse;
-        }catch (Exception e){
-            apiResponse.setCode(500);
-            apiResponse.setMessage("密码更改失败");
-            return apiResponse;
-        }
+        }//catch (Exception e){
+         //   apiResponse.setCode(500);
+         //   apiResponse.setMessage("密码更改失败，未知错误");
+         //   return apiResponse;
+        //}
     }
 
     public ApiResponse<Void> avatar(String path, byte[] bytes, int userId){
@@ -122,6 +122,17 @@ public class UserService {
         apiResponse.setData(userMapper.selectAvatar(userId));
         apiResponse.setCode(200);
         apiResponse.setMessage("头像查询成功");
+        return apiResponse;
+    }
+    public ApiResponse<Void> resetUserName(String newUserName, int userId){
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        if(userMapper.resetUserName(newUserName, userId) > 0){
+            apiResponse.setCode(200);
+            apiResponse.setMessage("修改用户名成功");
+        }else {
+            apiResponse.setCode(400);
+            apiResponse.setMessage("修改失败");
+        }
         return apiResponse;
     }
 }

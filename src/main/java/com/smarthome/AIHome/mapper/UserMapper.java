@@ -18,17 +18,18 @@ public interface UserMapper {
     })
     void insert(User user);
     @Select("""
-            select user_name, password
+            select user_name, password, user_id
             from smart_user where
             user_name = #{userName}
             """)
     @Results({
-            @Result(property = "userName", column = "user_name")
+            @Result(property = "userName", column = "user_name"),
+            @Result(property = "userId", column = "user_id")
     })
     User selectByName(String userName);
     @Update("""
             update smart_user set password = #{newPassword}
-            where user_id = userId
+            where user_id = #{userId}
             """)
     @Results({
             @Result(property = "newPassword", column = "password"),
@@ -51,5 +52,16 @@ public interface UserMapper {
             from smart_user
             where user_id = #{userId}
             """)
+    @Result(property = "userId", column = "user_id")
     String selectAvatar(int userId);
+    @Update("""
+            update smart_user set
+            user_name = #{newUserName}
+            where user_id = #{userId}
+            """)
+    @Results({
+            @Result(property = "newUserName", column = "user_name"),
+            @Result(property = "userId", column = "user_id")
+    })
+    int resetUserName(String newUserName, int userId);
 }
