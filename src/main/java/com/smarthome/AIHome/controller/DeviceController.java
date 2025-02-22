@@ -54,4 +54,9 @@ public class DeviceController {
     public ApiResponse<Void> updateAC(@RequestBody AirConditioner airConditioner){
         return deviceService.updateAC(airConditioner);
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping("/querryById")
+    public ApiResponse<Device> selectById(@RequestParam String deviceId, @RequestParam Device.Type type){
+        return deviceService.selectById(deviceId, type);
+    }
 }

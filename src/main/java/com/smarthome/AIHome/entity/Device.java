@@ -86,6 +86,6 @@ public  class Device {
     // 执行具体设备的控制命令
     //public abstract void executeCommand(String command, Object... params);
     public enum Type{
-        AC;//空调
+        AC//空调
     }
 }

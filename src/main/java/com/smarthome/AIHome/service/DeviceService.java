@@ -7,8 +7,6 @@ import com.smarthome.AIHome.entity.User;
 import com.smarthome.AIHome.mapper.DeviceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -87,5 +85,29 @@ public class DeviceService {
             apiResponse.setMessage("修改失败");
         }
         return apiResponse;
+    }
+    public ApiResponse<Device> selectById(String deviceId, Device.Type type){
+        ApiResponse<Device> apiResponse = new ApiResponse<>();
+       try{
+           Device device = deviceMapper.selectById(deviceId, type);
+           if (device == null){
+               apiResponse.setCode(404);
+               apiResponse.setMessage("设备未找到");
+               apiResponse.setData(null);
+           }
+           if(device instanceof AirConditioner){
+               AirConditioner ac = (AirConditioner) device;
+               apiResponse.setData(ac);
+           }else {
+               apiResponse.setData(device);
+           }
+           apiResponse.setCode(200);
+           apiResponse.setMessage("设备查询成功");
+       }catch (Exception e){
+           apiResponse.setCode(500);
+           apiResponse.setMessage("服务器内部错误");
+           e.printStackTrace();
+       }
+       return apiResponse;
     }
 }

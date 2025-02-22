@@ -45,4 +45,5 @@ public interface DeviceMapper {
     int deleteAll(int userId);
     int updateDevice(Device device);
     int updateAC(AirConditioner airConditioner);
+    Device selectById(String deviceId, Device.Type type);
 }
