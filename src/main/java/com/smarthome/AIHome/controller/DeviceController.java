@@ -1,5 +1,6 @@
 package com.smarthome.AIHome.controller;
 
+import com.smarthome.AIHome.entity.AirConditioner;
 import com.smarthome.AIHome.entity.ApiResponse;
 import com.smarthome.AIHome.entity.Device;
 import com.smarthome.AIHome.entity.User;
@@ -46,11 +47,11 @@ public class DeviceController {
     @CrossOrigin(origins = "*")
     @PutMapping("/update-device")
     public ApiResponse<Void> updateDevice(@RequestBody Device device){
-        return deviceService.updateDevice(device.getDeviceId());
+        return deviceService.updateDevice(device);
     }
     @CrossOrigin(origins = "*")
     @PutMapping("/update-device")
-    public ApiResponse<Void> updateAC(@RequestBody Device device){
-        return deviceService.updateAC(device.getDeviceId());
+    public ApiResponse<Void> updateAC(@RequestBody AirConditioner airConditioner){
+        return deviceService.updateAC(airConditioner);
     }
 }

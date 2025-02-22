@@ -1,5 +1,6 @@
 package com.smarthome.AIHome.service;
 
+import com.smarthome.AIHome.entity.AirConditioner;
 import com.smarthome.AIHome.entity.ApiResponse;
 import com.smarthome.AIHome.entity.Device;
 import com.smarthome.AIHome.entity.User;
@@ -65,9 +66,9 @@ public class DeviceService {
         }
         return apiResponse;
     }
-    public ApiResponse<Void> updateDevice(String deviceId){
+    public ApiResponse<Void> updateDevice(Device device){
         ApiResponse<Void> apiResponse = new ApiResponse<>();
-        if(deviceMapper.updateById(deviceId) > 0){
+        if(deviceMapper.updateDevice(device) > 0){
             apiResponse.setCode(200);
             apiResponse.setMessage("修改成功");
         }else {
@@ -76,9 +77,9 @@ public class DeviceService {
         }
         return apiResponse;
     }
-    public ApiResponse<Void> updateAC(String deviceId){
+    public ApiResponse<Void> updateAC(AirConditioner airConditioner){
         ApiResponse<Void> apiResponse = new ApiResponse<>();
-        if(deviceMapper.updateById(deviceId) > 0){
+        if(deviceMapper.updateAC(airConditioner) > 0){
             apiResponse.setCode(200);
             apiResponse.setMessage("修改成功");
         }else {

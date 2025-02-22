@@ -1,5 +1,5 @@
 <mapper namespace ="com.smarthome.AIHome.mapper.DeviceMapper">
-    <update id = "updateById">
+    <update id = "updateDevice">
         update device
         <set>
             <if test = "place != null and place !=''">
@@ -10,6 +10,22 @@
             </if>
             <if test= "status != null">
                 status = #{status},
+            </if>
+        </set>
+        where device_id = #{deviceId}
+    </update>
+
+    <update id = "updateAC">
+        update airconditioner
+        <set>
+            <if test="temperature != null">
+                temperature = #{temperature},
+            </if>
+            <if test="fanSpeed != null">
+                fan_speed = #{fanSpeed},
+            </if>
+            <if test="mode != null">
+                mode = #{mode},
             </if>
         </set>
         where device_id = #{deviceId}

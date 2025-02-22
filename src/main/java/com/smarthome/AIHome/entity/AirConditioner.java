@@ -9,7 +9,7 @@ public class AirConditioner extends Device{
         super(deviceId, model, name, type, place, ownerId);
         this.temperature = 26;
         this.fanSpeed = FanSpeed.MEDIUM;
-        this.mode = Mode.AUTO;
+        this.mode = Mode.AUTO;//
     }
 
     public AirConditioner() {
@@ -39,20 +39,20 @@ public class AirConditioner extends Device{
         this.mode = mode;
     }
 
-    @Override
-    public void turnOn() {
+   // @Override
+    //public void turnOn() {
 
-    }
+    //}
 
-    @Override
-    public void turnOff() {
+   // @Override
+   // public void turnOff() {
 
-    }
+    //}
 
-    @Override
-    public void executeCommand(String command, Object... params) {
+    //@Override
+   // public void executeCommand(String command, Object... params) {
 
-    }
+   // }
     public enum FanSpeed{
         LOW,
         MEDIUM,

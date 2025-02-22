@@ -1,5 +1,6 @@
 package com.smarthome.AIHome.mapper;
 
+import com.smarthome.AIHome.entity.AirConditioner;
 import com.smarthome.AIHome.entity.Device;
 import org.apache.ibatis.annotations.*;
 
@@ -42,5 +43,6 @@ public interface DeviceMapper {
             """)
     @Result(property = "userId", column = "owner_id")
     int deleteAll(int userId);
-    int updateById(String deviceId);
+    int updateDevice(Device device);
+    int updateAC(AirConditioner airConditioner);
 }
