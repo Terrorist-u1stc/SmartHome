@@ -74,6 +74,13 @@ public class UserController {
             return apiResponse;
         }
     }
+    //上传头像，二进制数组
+    @CrossOrigin(origins = "*")
+    @PostMapping("/upload-avatar")
+    public ApiResponse<Void> uploadAvatar2(@RequestBody byte[] profilePhoto, HttpSession session){
+        User user = (User) session.getAttribute("currentUser");
+        return userService.uploadAvatar(profilePhoto, user.getUserId());
+    }
     //显示头像
     @CrossOrigin(origins = "*")
     @GetMapping("/avatar")

@@ -5,6 +5,7 @@ public class User {
     private String password;
     private String phoneNumber;
     private Integer userId;
+    private byte[] profilePhoto;
 
     public User(String userName, String password, String phoneNumber) {
         this.userName = userName;
@@ -45,5 +46,13 @@ public class User {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public byte[] getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(byte[] profilePhoto) {
+        this.profilePhoto = profilePhoto;
     }
 }

@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class CommandController {
     @CrossOrigin(origins = "*")
-    @PostMapping
-    public ApiResponse<Void> processCommand(@RequestBody Command command) {
-        ApiResponse<Void> apiResponse = new ApiResponse<>();
-        apiResponse.setMessage(command.getCommand());
+    @PostMapping("/command")
+    public ApiResponse<Command> processCommand(@RequestBody Command command) {
+        ApiResponse<Command> apiResponse = new ApiResponse<>();
+        apiResponse.setMessage("");
+        apiResponse.setData();
         apiResponse.setCode(200);
         return apiResponse;
     }

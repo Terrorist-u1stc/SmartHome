@@ -135,4 +135,21 @@ public class UserService {
         }
         return apiResponse;
     }
+    public ApiResponse<Void> uploadAvatar(byte[] bytes, int userId){
+        ApiResponse<Void> apiResponse = new ApiResponse<>();
+        try{
+            int rows = userMapper.updateAvatar2(bytes, userId);
+            if(rows > 0){
+                apiResponse.setCode(200);
+                apiResponse.setMessage("头像上传成功");
+            }else {
+                apiResponse.setCode(500);
+                apiResponse.setMessage("头像上传失败");
+            }
+        }catch (Exception e){
+            apiResponse.setCode(500);
+            apiResponse.setMessage("服务器内部错误");
+        }
+        return apiResponse;
+    }
 }

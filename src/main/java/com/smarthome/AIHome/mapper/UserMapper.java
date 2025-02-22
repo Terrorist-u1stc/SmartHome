@@ -2,6 +2,7 @@ package com.smarthome.AIHome.mapper;
 
 import com.smarthome.AIHome.entity.User;
 import org.apache.ibatis.annotations.*;
+import org.springframework.security.core.parameters.P;
 
 @Mapper
 
@@ -17,14 +18,16 @@ public interface UserMapper {
             @Result(property = "phoneNumber", column = "phone_number")
     })
     void insert(User user);
+    //用户登陆
     @Select("""
-            select user_name, password, user_id
+            select user_name, password, user_id, profile_photo
             from smart_user where
             user_name = #{userName}
             """)
     @Results({
             @Result(property = "userName", column = "user_name"),
-            @Result(property = "userId", column = "user_id")
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "profilePhoto", column = "profile_photo")
     })
     User selectByName(String userName);
     @Update("""
@@ -64,4 +67,14 @@ public interface UserMapper {
             @Result(property = "userId", column = "user_id")
     })
     int resetUserName(String newUserName, int userId);
+    @Update("""
+            update smart_user
+            set profile_photo = #{profilePhoto}
+            WHERE user_id = #{userId}
+            """)
+    @Results({
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "profilePhoto", column = "profile_photo")
+    })
+    int updateAvatar2(byte[] profilePhoto, int userId);
 }
