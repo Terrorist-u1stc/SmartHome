@@ -39,7 +39,7 @@ public class DeviceController {
     }
     //删除某个用户的全部设备
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/deleteById")
+    @DeleteMapping("/delete_allById")
     public ApiResponse<Void> deleteAll(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return deviceService.deleteAll(user.getUserId());
@@ -50,7 +50,7 @@ public class DeviceController {
         return deviceService.updateDevice(device);
     }
     @CrossOrigin(origins = "*")
-    @PutMapping("/update-device")
+    @PutMapping("/update-AC")
     public ApiResponse<Void> updateAC(@RequestBody AirConditioner airConditioner){
         return deviceService.updateAC(airConditioner);
     }

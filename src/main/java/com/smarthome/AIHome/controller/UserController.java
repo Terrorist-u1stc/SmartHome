@@ -42,7 +42,7 @@ public class UserController {
     }
     //通过旧密码重新设置密码
     @CrossOrigin(origins = "*")
-    @PostMapping("/reset-password")
+    @PostMapping("/reset_password")
     public ApiResponse<Void> reset(@RequestParam String newPassword ,@RequestParam String oldPassword, HttpSession session){
         ApiResponse<Void> apiResponse = new ApiResponse<>();
         User user = (User) session.getAttribute("currentUser");
@@ -76,7 +76,7 @@ public class UserController {
     }
     //上传头像，二进制数组
     @CrossOrigin(origins = "*")
-    @PostMapping("/upload-avatar")
+    @PostMapping("/upload_avatar")
     public ApiResponse<Void> uploadAvatar2(@RequestBody byte[] profilePhoto, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return userService.uploadAvatar(profilePhoto, user.getUserId());

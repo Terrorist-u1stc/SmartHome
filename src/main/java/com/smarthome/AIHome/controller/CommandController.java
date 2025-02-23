@@ -13,7 +13,7 @@ public class CommandController {
     public ApiResponse<Command> processCommand(@RequestBody Command command) {
         ApiResponse<Command> apiResponse = new ApiResponse<>();
         apiResponse.setMessage("");
-        apiResponse.setData();
+        //apiResponse.setData();
         apiResponse.setCode(200);
         return apiResponse;
     }
