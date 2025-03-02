@@ -77,7 +77,7 @@ public class UserController {
     //上传头像，二进制数组
     @CrossOrigin(origins = "*")
     @PostMapping("/upload_avatar")
-    public ApiResponse<Void> uploadAvatar2(@RequestBody byte[] profilePhoto, HttpSession session){
+    public ApiResponse<Void> uploadAvatar2(@RequestBody String profilePhoto, HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return userService.uploadAvatar(profilePhoto, user.getUserId());
     }
@@ -91,10 +91,8 @@ public class UserController {
     //更改用户名
     @CrossOrigin(origins = "*")
     @PostMapping("/reset-userName")
-    public ApiResponse<Void> resetUserName(@RequestParam String newUserName, HttpSession session){
-        User user = (User) session.getAttribute("currentUser");
-        return userService.resetUserName(newUserName, user.getUserId());
+    public ApiResponse<Void> resetUserName(@RequestBody User user, HttpSession session){
+        User user1 = (User) session.getAttribute("currentUser");
+        return userService.resetUserName(user.getUserName(), user.getUserId());
     }
-    //修改某设备的信息
-
 }

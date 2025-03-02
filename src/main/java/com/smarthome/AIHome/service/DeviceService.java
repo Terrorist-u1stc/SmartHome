@@ -21,7 +21,7 @@ public class DeviceService {
         if (devices == null){
             apiResponse.setData(devices);
             apiResponse.setMessage("未查询到任何设备");
-            apiResponse.setCode(200);
+            apiResponse.setCode(404);
             return apiResponse;
         }
         apiResponse.setData(devices);
@@ -42,9 +42,9 @@ public class DeviceService {
         apiResponse.setCode(200);
         return apiResponse;
     }
-    public ApiResponse<Void> deleteDevice(String deviceId){
+    public ApiResponse<Void> deleteDevice(int _id){
         ApiResponse<Void> apiResponse = new ApiResponse<>();
-        if(deviceMapper.deleteById(deviceId) > 0) {
+        if(deviceMapper.deleteById(_id) > 0) {
             apiResponse.setCode(200);
             apiResponse.setMessage("已成功删除");
         }else {
@@ -86,10 +86,10 @@ public class DeviceService {
         }
         return apiResponse;
     }
-    public ApiResponse<Device> selectById(String deviceId, Device.Type type){
+    public ApiResponse<Device> selectById(int _id, Device.Type type){
         ApiResponse<Device> apiResponse = new ApiResponse<>();
        try{
-           Device device = deviceMapper.selectById(deviceId, type);
+           Device device = deviceMapper.selectById(_id, type);
            if (device == null){
                apiResponse.setCode(404);
                apiResponse.setMessage("设备未找到");

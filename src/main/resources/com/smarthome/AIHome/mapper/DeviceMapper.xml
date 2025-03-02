@@ -14,7 +14,7 @@
                 status = #{status},
             </if>
         </set>
-        where device_id = #{deviceId}
+        where device_id = #{_id}
     </update>
 
     <update id = "updateAC">
@@ -30,30 +30,39 @@
                 mode = #{mode},
             </if>
         </set>
-        where device_id = #{deviceId}
+        where device_id = #{_id}
     </update>
 
     <select id="selectById" resultMap="deviceResultMap">
         <choose>
-            <when test="type == 'AC'">
-                select D.model, D.place, D.type, D.name, A.temperature, A.mode, A.fan_speed
+            <when test="type.name() == 'AC'">
+                select D.model, D.place, D.type, D.name,D.device_id, D.status, A.temperature, A.mode, A.fan_speed
                 from device D, air_conditioner A
                 where D.device_id = A.device_id
             </when>
             <otherwise>
-                select * from device where device_id = #{deviceId}
+                select * from device where device_id = #{_id}
             </otherwise>
         </choose>
     </select>
     <resultMap id="deviceResultMap" type="com.smarthome.AIHome.entity.Device">
-        <id property="deviceId" column="device_id"/>
+        <id property="_id" column="device_id"/>
+        <result property="_id" column="device_id"/>
         <result property="name" column="name"/>
         <result property="type" column="type"/>
         <result property="status" column="status"/>
         <result property="place" column="place"/>
         <result property="model" column="model"/>
 
+        <discriminator javaType="com.smarthome.AIHome.entity.Device$Type" column="type">
+            <case value="AC" resultMap="airConditionerResultMap"/>
+            <!-- 可以添加其他case来区分不同的子类 -->
+        </discriminator>
+
+    </resultMap>
+    <resultMap id="airConditionerResultMap" type="com.smarthome.AIHome.entity.AirConditioner">
         <result property="temperature" column="temperature"/>
         <result property="fanSpeed" column="fan_speed"/>
+        <result property="mode" column="mode"/>
     </resultMap>
 </mapper>

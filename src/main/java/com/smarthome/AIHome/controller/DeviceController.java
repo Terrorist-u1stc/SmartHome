@@ -34,29 +34,29 @@ public class DeviceController {
     //删除设备，通过id
     @CrossOrigin(origins = "*")
     @DeleteMapping("/deleteById")
-    public ApiResponse<Void> deleteById(@RequestParam String deviceId){
-        return deviceService.deleteDevice(deviceId);
+    public ApiResponse<Void> deleteById(@RequestParam int id){
+        return deviceService.deleteDevice(id);
     }
     //删除某个用户的全部设备
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/delete_allById")
+    @DeleteMapping("/deleteAll")
     public ApiResponse<Void> deleteAll(HttpSession session){
         User user = (User) session.getAttribute("currentUser");
         return deviceService.deleteAll(user.getUserId());
     }
     @CrossOrigin(origins = "*")
-    @PutMapping("/update-device")
+    @PutMapping("/updateDevice")
     public ApiResponse<Void> updateDevice(@RequestBody Device device){
         return deviceService.updateDevice(device);
     }
     @CrossOrigin(origins = "*")
-    @PutMapping("/update-AC")
+    @PutMapping("/updateAC")
     public ApiResponse<Void> updateAC(@RequestBody AirConditioner airConditioner){
         return deviceService.updateAC(airConditioner);
     }
     @CrossOrigin(origins = "*")
-    @PostMapping("/querryById")
-    public ApiResponse<Device> selectById(@RequestParam String deviceId, @RequestParam Device.Type type){
-        return deviceService.selectById(deviceId, type);
+    @PostMapping("/queryById")
+    public ApiResponse<Device> selectById(@RequestParam int _id, @RequestParam Device.Type type){
+        return deviceService.selectById(_id, type);
     }
 }

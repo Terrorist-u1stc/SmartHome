@@ -12,8 +12,8 @@ public class CommandController {
     @PostMapping("/command")
     public ApiResponse<Command> processCommand(@RequestBody Command command) {
         ApiResponse<Command> apiResponse = new ApiResponse<>();
-        apiResponse.setMessage("");
-        //apiResponse.setData();
+        apiResponse.setMessage("?");
+        apiResponse.setData(command);
         apiResponse.setCode(200);
         return apiResponse;
     }

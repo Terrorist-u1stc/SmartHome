@@ -8,26 +8,28 @@ import org.springframework.security.core.parameters.P;
 
 public interface UserMapper {
     @Insert("""
-            insert into smart_user(user_name, password, phone_number)
-            values(#{userName}, #{password}, #{phoneNumber})
+            insert into smart_user(user_name, password, phone_number,profile_photo)
+            values(#{userName}, #{password}, #{phoneNumber},#{profilePhoto})
             """)
     @Options(useGeneratedKeys = true, keyProperty = "userId", keyColumn = "user_id")
     @Results({
             @Result(property = "userName", column = "user_name"),
             @Result(property = "password", column = "password"),
-            @Result(property = "phoneNumber", column = "phone_number")
+            @Result(property = "phoneNumber", column = "phone_number"),
+            @Result(property = "profilePhoto" ,column = "profile_photo")
     })
     void insert(User user);
     //用户登陆
     @Select("""
-            select user_name, password, user_id, profile_photo
+            select user_name, password, user_id, profile_photo, phone_number
             from smart_user where
             user_name = #{userName}
             """)
     @Results({
             @Result(property = "userName", column = "user_name"),
             @Result(property = "userId", column = "user_id"),
-            @Result(property = "profilePhoto", column = "profile_photo")
+            @Result(property = "profilePhoto", column = "profile_photo"),
+            @Result(property = "phoneNumber" , column = "phone_number")
     })
     User selectByName(String userName);
     @Update("""
@@ -76,5 +78,5 @@ public interface UserMapper {
             @Result(property = "userId", column = "user_id"),
             @Result(property = "profilePhoto", column = "profile_photo")
     })
-    int updateAvatar2(byte[] profilePhoto, int userId);
+    int updateAvatar2(String profilePhoto, int userId);
 }

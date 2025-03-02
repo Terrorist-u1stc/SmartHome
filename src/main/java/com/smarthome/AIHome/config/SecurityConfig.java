@@ -8,10 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig  {
@@ -29,7 +29,6 @@ public class SecurityConfig  {
 
                 // 配置身份验证方式，禁用 HTTP Basic 认证，或使用其他方式（如表单登录）
                 .httpBasic(httpBasic -> httpBasic.disable());  // 禁用 Basic Authentication
-
         return http.build();
     }
 

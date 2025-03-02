@@ -10,11 +10,11 @@ import java.util.List;
 public interface DeviceMapper {
     //新增设备
     @Insert("""
-            insert into device(device_id, model, name, type, place, status, owner_id)
-            values(#{deviceId}, #{model}, #{name}, #{type}, #{place}, #{status}, #{ownerId})
+            insert into device(model, name, type, place, status, owner_id)
+            values( #{model}, #{name}, #{type}, #{place}, #{status}, #{ownerId})
             """)
     @Results({
-            @Result(property = "deviceId", column = "device_id"),
+            @Result(property = "_id", column = "device_id"),
             @Result(property = "ownerId", column = "owner_id")
     })
 
@@ -25,7 +25,7 @@ public interface DeviceMapper {
             from device where owner_id = #{id}
             """)
     @Results({
-            @Result(property = "deviceId", column = "device_id"),
+            @Result(property = "_id", column = "device_id"),
             @Result(property = "id", column = "owner_id")
     })
     List<Device> selectAll(int id);
@@ -34,8 +34,8 @@ public interface DeviceMapper {
             delete from device where
             device_id = #{deviceId}
             """)
-    @Result(property = "deviceId", column = "device_id")
-    int deleteById(String deviceId);
+    @Result(property = "_id", column = "device_id")
+    int deleteById(int _id);
     //删除某用户所有设备
     @Delete("""
             delete from device where
@@ -45,5 +45,5 @@ public interface DeviceMapper {
     int deleteAll(int userId);
     int updateDevice(Device device);
     int updateAC(AirConditioner airConditioner);
-    Device selectById(String deviceId, Device.Type type);
+    Device selectById(int _id, Device.Type type);
 }

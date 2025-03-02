@@ -5,8 +5,8 @@ public class AirConditioner extends Device{
     private FanSpeed fanSpeed;
     private Mode mode;
 
-    public AirConditioner(String deviceId, String model, String name, Type type, String place, Integer ownerId) {
-        super(deviceId, model, name, type, place, ownerId);
+    public AirConditioner(int _id, String model, String name, Type type, String place, Integer ownerId) {
+        super(_id, model, name, type, place, ownerId);
         this.temperature = 26;
         this.fanSpeed = FanSpeed.MEDIUM;
         this.mode = Mode.AUTO;//
