@@ -46,4 +46,15 @@ public interface DeviceMapper {
     int updateDevice(Device device);
     int updateAC(AirConditioner airConditioner);
     Device selectById(int _id, Device.Type type);
+
+
+    @Select("""
+            select device_id, place
+            from device where owner_id = #{id} and type = #{type}
+            """)
+    @Results({
+            @Result(property = "_id", column = "device_id"),
+            @Result(property = "id", column = "owner_id")
+    })
+    List<Device> selectDeviceById(int id, Device.Type type);
 }
