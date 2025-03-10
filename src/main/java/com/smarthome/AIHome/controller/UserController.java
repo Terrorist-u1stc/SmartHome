@@ -21,6 +21,7 @@ public class UserController {
     public ApiResponse<Void> register(@RequestBody User user){
         return userService.register(user);
     }
+
     @CrossOrigin(origins = "*")
     @PostMapping("/login")
     public ApiResponse<User> login(@RequestBody User user, HttpSession session){
@@ -77,9 +78,9 @@ public class UserController {
     //上传头像，二进制数组
     @CrossOrigin(origins = "*")
     @PostMapping("/upload_avatar")
-    public ApiResponse<Void> uploadAvatar2(@RequestBody String profilePhoto, HttpSession session){
-        User user = (User) session.getAttribute("currentUser");
-        return userService.uploadAvatar(profilePhoto, user.getUserId());
+    public ApiResponse<Void> uploadAvatar2(@RequestBody User user , HttpSession session){
+        User user1 = (User) session.getAttribute("currentUser");
+        return userService.uploadAvatar(user.getProfilePhoto(), user1.getUserId());
     }
     //显示头像
     @CrossOrigin(origins = "*")

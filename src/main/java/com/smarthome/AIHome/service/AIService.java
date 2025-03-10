@@ -45,7 +45,7 @@ public class AIService {
     }
 
     public AIResponse getAIResponse(Command command) {
-        String aiApiUrl = "";
+        String aiApiUrl = "https://cb4b-113-54-242-186.ngrok-free.app/process";
 
         return restTemplate.postForObject(aiApiUrl, command, AIResponse.class);
     }
@@ -82,24 +82,25 @@ public class AIService {
 
         List<Device> devices = deviceMapper.selectDeviceById(userId, deviceType);
         if (devices == null || devices.isEmpty()) {
-            apiResponse.setMessage("未找到对应的设备。");
+            apiResponse.setMessage("第一步，未找到对应的设备。");
             apiResponse.setCode(404);
             return apiResponse;
         }
         for (Device d : devices) {
-            if (d.getPlace() == aiResponse.getPlace()) {
+            if (d.getPlace().equals(aiResponse.getPlace())) {
                 _id = d.get_id();
+                break;
             }
         }
         if(_id == null){
-            apiResponse.setMessage("未找到对应的设备。");
+            apiResponse.setMessage("第二步，未找到对应的设备。");
             apiResponse.setCode(404);
             return apiResponse;
         }
 
-        String content = "设备ID: " + _id + ", 意图: " + aiResponse.getIntent() + "value" +
+        String content = "设备ID: " + _id + ", 意图: " + aiResponse.getIntent() + ", value:" +
                 aiResponse.getValue();
-        command1.setContent(content);
+        command1.setText(content);
 
 
         apiResponse.setData(command1);

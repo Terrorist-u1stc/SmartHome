@@ -1,17 +1,13 @@
 package com.smarthome.AIHome.entity;
 
 public class Command {
-    String content;
+    String text;
 
-    public String getCommand() {
-        return content;
+    public String getText() {
+        return text;
     }
 
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
+    public void setText(String text) {
+        this.text = text;
     }
 }

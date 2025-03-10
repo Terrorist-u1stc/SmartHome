@@ -4,7 +4,7 @@ public class AIResponse {
     String intent;
     String place;
     String device;
-    Integer value;
+    String value;
 
     public String getIntent() {
         return intent;
@@ -30,11 +30,11 @@ public class AIResponse {
         this.device = device;
     }
 
-    public Integer getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Integer value) {
+    public void setValue(String value) {
         this.value = value;
     }
 }
