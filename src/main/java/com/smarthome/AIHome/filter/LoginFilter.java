@@ -17,7 +17,7 @@ public class LoginFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse resp = (HttpServletResponse) response;
-        String urls [] = {"/login", "register"};
+        String urls [] = {"/login", "register", "/verify", "/verify2","/send"};
         String url = req.getRequestURL().toString();
 
         for(String s : urls){

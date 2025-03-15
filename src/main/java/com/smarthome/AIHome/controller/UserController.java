@@ -2,6 +2,7 @@ package com.smarthome.AIHome.controller;
 
 import com.smarthome.AIHome.entity.ApiResponse;
 import com.smarthome.AIHome.entity.User;
+import com.smarthome.AIHome.service.SmsService;
 import com.smarthome.AIHome.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 
 public class UserController {
     @Autowired
     UserService userService;
+
+    @Autowired
+    private SmsService smsService;
+
     @CrossOrigin(origins = "*")
     @PostMapping("/register")
     public ApiResponse<Void> register(@RequestBody User user){
@@ -95,5 +102,41 @@ public class UserController {
     public ApiResponse<Void> resetUserName(@RequestBody User user, HttpSession session){
         User user1 = (User) session.getAttribute("currentUser");
         return userService.resetUserName(user.getUserName(), user.getUserId());
+    }
+
+
+    //通过短信验证码登录
+    @CrossOrigin(origins = "*")
+    @PostMapping("/verify")
+    public ApiResponse<User> verifyCode(@RequestParam String phoneNumber, @RequestParam String code, HttpSession session) {
+        ApiResponse<User> apiResponse;
+        boolean isValid = smsService.verifyCode(phoneNumber, code);
+        if(isValid){
+            apiResponse = userService.login(phoneNumber);
+        }else {
+            apiResponse =new ApiResponse<>();
+            apiResponse.setCode(500);
+            apiResponse.setMessage("验证失败");
+        }
+        if (apiResponse.getCode() == HttpStatus.OK.value()){
+            session.setAttribute("currentUser", apiResponse.getData());
+        }
+        return apiResponse;
+    }
+    //通过短信验证码修改密码
+    @CrossOrigin(origins = "*")
+    @PostMapping("/verify2")
+    public ApiResponse<Void> verifyCode(@RequestParam String phoneNumber, @RequestParam String code, @RequestParam String newPassword) {
+        ApiResponse<Void> apiResponse;
+        boolean isValid = smsService.verifyCode(phoneNumber, code);
+        if(isValid){
+            apiResponse = userService.reset(phoneNumber,newPassword);
+        }else {
+            apiResponse =new ApiResponse<>();
+            apiResponse.setCode(500);
+            apiResponse.setMessage("验证失败");
+        }
+
+        return apiResponse;
     }
 }

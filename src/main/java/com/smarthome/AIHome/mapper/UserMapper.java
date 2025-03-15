@@ -32,6 +32,19 @@ public interface UserMapper {
             @Result(property = "phoneNumber" , column = "phone_number")
     })
     User selectByName(String userName);
+    @Select("""
+            select user_name, password, user_id, profile_photo, phone_number
+            from smart_user where
+            phone_number = #{phoneNumber}
+            """)
+    @Results({
+            @Result(property = "userName", column = "user_name"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "profilePhoto", column = "profile_photo"),
+            @Result(property = "phoneNumber" , column = "phone_number")
+    })
+    User selectByPhone(String phoneNumber);
+
     @Update("""
             update smart_user set password = #{newPassword}
             where user_id = #{userId}
@@ -41,6 +54,19 @@ public interface UserMapper {
             @Result(property = "userId", column = "user_id")
     })
     int updatePassword(String newPassword, int userId);
+
+    @Update("""
+            update smart_user set password = #{newPassword}
+            where phone_number = #{phoneNumber}
+            """)
+    @Results({
+            @Result(property = "newPassword", column = "password"),
+            @Result(property = "userId", column = "user_id"),
+            @Result(property = "phoneNumber", column = "phone_number")
+    })
+    int updatePassword2(String newPassword, String phoneNumber);
+
+
     @Update("""
             update smart_user set 
             img_path = #{path}
